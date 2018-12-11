@@ -56,20 +56,18 @@
                     <h4 class="light muted">Rumah Sakit Merah Putih</h4>                    
                     <br><br><br><br>
                     <!--<p id="demo"></p>-->                 
-                </div>            
+                </div>    
+
                 <div class="contact-form">
                     <center>
                         <table>
-                            <tr><td>Nama Pasien</td> <td>:</td> <td><input type="text" onchange="loadDocc()" id="nama"/> <button type="button" onclick="loadDocc()" id="btn">Cari</button></td></tr>
+                            <tr><td>Nama Pasien</td> <td>:</td> <td><input type="text" onchange="loadDoc()" id="nama"/> <button type="button" onclick="loadDoc()" id="btn">Cari</button></td></tr>
                         </table>
                     </center>
-                    <script>                     
-                        function loadDocc() {
-                            var xmlhttp = new XMLHttpRequest();
-
+                    <script>
+                        function loadDoc() {
                             var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nama=" + nama.value;
-//                            var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nama=Bambang";
-
+                            var xmlhttp = new XMLHttpRequest();
                             xmlhttp.onreadystatechange = function () {
                                 if (this.readyState == 4 && this.status == 200) {
                                     myFunction(this.responseText);
@@ -89,18 +87,17 @@
                                             "</td><td>" +
                                             arr[i].nama +
                                             "</td><td>" +
-                                            arr[i].tanggalLahir+
+                                            arr[i].tanggalLahir +
                                             "<tr><td>" +
-                                            <button type="button" id="btnDetil" onclick="open()">detil</button>;
+                                            arr[i].<button type="button" id="btnDetil" onclick="open()">detil</button>;
                                 }
                                 out += "<center></table></center>";
                                 document.getElementById("id01").innerHTML = out;
                             }
                         }
-                        function open(){
+                        function open() {
                             window.open("detilPasien.html", "_self");
                         }
-                       
                     </script>
                 </div>
         </section> 
