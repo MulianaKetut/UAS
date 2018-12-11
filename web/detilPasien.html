@@ -58,47 +58,36 @@
                     <!--<p id="demo"></p>-->                 
                 </div>            
                 <div class="contact-form">
-                    <center>
-                        <table>
-                            <tr><td>NIK</td> <td>:</td> <td><input type="text" onchange="loadDocc()" id="nik"/> <button type="button" onclick="loadDocc()" id="btn">Cari</button></td></tr>
-                        </table>
-                    </center>
-                    <script>                     
-                        function loadDocc() {
-                            var xmlhttp = new XMLHttpRequest();
+                    <center><table>
+                            <tr><td>NIK</td> <td>:</td> <td><input type="text" onchange="loadDoc()" id="nik"/> <button type="button" onclick="loadDoc()" id="btn">Cari</button></td></tr>
+                        </table></center>
 
-                            var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariNamaPasien?nik=" + nik.value;
+                    <br/><br/><br/><center><h3>Data Hasil Pencarian</h3></center><br/>
+                    <center><table>
+                            <tr><td>No RM</td> <td>:</td> <td><input type="text" id="noRm" value="" disabled=""/></td>
+                            <tr><td>Nama</td> <td>:</td> <td><input type="text" id="nama" value="" disabled=""/></td>
+                            <tr><td>Tanggal Lahir</td> <td>:</td><td><input type="text" id="tanggalLahir" value="" disabled=""/></td></tr>
+                            <tr><td>Jenis Kelamin</td> <td>:</td><td><input type="text" id="kelamin" value="" disabled=""/></td><tr>
+                            <tr><td>Alamat</td> <td>:</td> <td><input type="text" id="alamat" value="" disabled=""/></td></tr>                            
 
-                            xmlhttp.onreadystatechange = function () {
+                        </table></center>
+                    <script>
+                        function loadDoc() {
+                            //var nikk = nik.value;
+                            var url = "http://206.189.38.188:8080/myrs/webresources/pasien/cariPasien?nik=" + nik.value;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", url, true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function () {
                                 if (this.readyState == 4 && this.status == 200) {
-                                    myFunction(this.responseText);
+                                    var objj = JSON.parse(this.responseText);
+                                    document.getElementById("noRm").value = objj.noRm;
+                                    document.getElementById("nama").value = objj.nama;
+                                    document.getElementById("alamat").value = objj.alamat;
+                                    document.getElementById("tanggalLahir").value = objj.tanggalLahir;
+                                    document.getElementById("kelamin").value = objj.kelamin;
                                 }
-                            }
-                            xmlhttp.open("GET", url, true);
-                            xmlhttp.send();
-
-                            function myFunction(response) {
-                                var arr = JSON.parse(response);
-                                var i;
-                                var out = "<center><table align='center' style='width: 60%;' border='1'> <tr><td>No RM</td><td>Nama</td><td>Alamat</td><td>NIK</td><td>Tanggal Lahir</td><td>Kelamin</td></tr></center>";
-
-                                for (i = 0; i < arr.length; i++) {
-                                    out += "<tr><td>" +
-                                            arr[i].noRm +
-                                            "<tr><td>" +
-                                            arr[i].nama +
-                                            "</td><td>" +
-                                            arr[i].alamat +
-                                            "</td><td>" +
-                                            arr[i].nik +
-                                            "</td><td>" +
-                                            arr[i].tanggalLahir+
-                                            "<tr><td>" +
-                                            arr[i].kelamin;
-                                }
-                                out += "<center></table></center>";
-                                document.getElementById("id01").innerHTML = out;
-                            }
+                            };
                         }
                     </script>
                 </div>
